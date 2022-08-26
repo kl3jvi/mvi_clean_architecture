@@ -1,0 +1,31 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.TakeawayTask" parent="Theme.MaterialComponents.DayNight">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryVariant">@color/primary_dark_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondary_color</item>
+        <item name="colorSecondaryVariant">@color/secondary_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <!-- Status bar color. -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:navigationBarColor">@color/nav_bar</item>
+
+        <item name="actionBarStyle">@style/TakeAwayActionBar</item>
+
+<!--        <item name="android:colorBackground">@color/nav_bar</item>-->
+
+    </style>
+
+
+    <style name="TakeAwayActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/nav_bar</item>
+        <item name="android:elevation">5dp</item>
+
+    </style>
+</resources>

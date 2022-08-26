@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="clickListener"
+                type="android.view.View.OnClickListener"/>
+
+        <variable
+                name="favoriteClickListener"
+                type="com.kl3jvi.feature_home.adapter.OnFavoriteButtonClickListener"/>
+
+        <variable
+                name="restaurantInfo"
+                type="com.kl3jvi.model.Restaurant"/>
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:cardBackgroundColor="@color/cardBg"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="2dp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/testRoot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="@{clickListener}"
+                app:layout_constraintBottom_toTopOf="@+id/status"
+                app:layout_constraintTop_toTopOf="@+id/status">
+
+
+            <TextView
+                    android:id="@+id/name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textStyle="bold"
+                    android:text="@{restaurantInfo.name}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/textColor"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintEnd_toStartOf="@+id/ib_restaurant_save"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="@+id/guideline2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Umami" android:layout_marginEnd="8dp"/>
+
+            <TextView
+                    android:id="@+id/status"
+                    statusText="@{restaurantInfo.status}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/minimumCost"
+                    tools:text="Open"
+                    app:layout_constraintTop_toTopOf="@+id/minimumCost"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"/>
+
+
+            <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/restaurantRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:max="5"
+                    android:progress="@{restaurantInfo.getRatingValue()}"
+                    app:layout_constraintStart_toStartOf="@+id/name"
+                    app:layout_constraintTop_toBottomOf="@+id/name"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_8"
+                    android:text="@{String.valueOf(restaurantInfo.sortingValues.ratingAverage)+`/5.0`}"
+                    android:textColor="@color/ratingColor"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+                    app:layout_constraintStart_toEndOf="@+id/ratingBar"
+                    app:layout_constraintTop_toTopOf="@+id/ratingBar"
+                    tools:text="5.0"/>
+
+            <ImageButton
+                    android:id="@+id/ib_restaurant_save"
+                    isFavorite="@{restaurantInfo.isFavorite}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:importantForAccessibility="no"
+                    android:onClick="@{()->favoriteClickListener.toggleRestaurantFavoriteState(restaurantInfo)}"
+                    app:layout_constraintTop_toTopOf="@+id/name"
+                    app:srcCompat="@drawable/ic_bookmark" app:layout_constraintBottom_toBottomOf="@+id/name"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="30dp"/>
+
+            <TextView
+                    android:id="@+id/textView"
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:drawableStart="@drawable/ic_distance"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:text="@{@string/distance(restaurantInfo.sortingValues.getDistanceInKM())}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+                    tools:text="25 Km"/>
+
+            <TextView
+                    android:id="@+id/minimumCost"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:drawableStart="@drawable/ic_cost"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:text="@{@string/min_cost(String.valueOf(restaurantInfo.sortingValues.minCost))}"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView"
+                    app:layout_constraintEnd_toStartOf="@+id/status"
+                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="@+id/textView"
+                    tools:text="€ 14.99"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintGuide_end="10dp"
+                    android:id="@+id/guideline3"
+                    android:layout_marginEnd="7dp"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>

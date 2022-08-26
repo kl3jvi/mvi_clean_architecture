@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_light_color">#ff9d5a</color>
+    <color name="primary_color">#e76d2c</color>
+    <color name="primary_dark_color">#ae3e00</color>
+
+
+    <color name="secondary_color">#ffe234</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="transparent">#0fff</color>
+    <color name="nav_bar">#B3E8E8E8</color>
+
+    <color name="textColor">#202020</color>
+
+</resources>

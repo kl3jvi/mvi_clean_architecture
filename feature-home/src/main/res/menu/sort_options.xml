@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/sort_action"
+        android:icon="@drawable/ic_sort"
+        android:title="@string/best_match_sort"
+        app:showAsAction="ifRoom" />
+
+</menu>
+
+    <!-- val bestMatch: Float,
+        val newest: Float,
+        val ratingAverage: Float,
+        val distance: Long,
+        val popularity: Float,
+        val averageProductPrice: Long,
+        val deliveryCosts: Long,
+        val minCost: Long,-->

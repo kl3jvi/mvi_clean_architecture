@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/Takeaway_Task.common.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/common/Takeaway_Task.common.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/Takeaway_Task.common.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/common/Takeaway_Task.common.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-network/Takeaway_Task.core-network.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/core-network/Takeaway_Task.core-network.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-network/Takeaway_Task.core-network.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/core-network/Takeaway_Task.core-network.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/Takeaway_Task.data.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/data/Takeaway_Task.data.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/Takeaway_Task.data.main.iml" filepath="$PROJECT_DIR$/.idea/modules/data/Takeaway_Task.data.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/Takeaway_Task.data.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/data/Takeaway_Task.data.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/Takeaway_Task.domain.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/Takeaway_Task.domain.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/Takeaway_Task.domain.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/Takeaway_Task.domain.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/model/Takeaway_Task.model.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/model/Takeaway_Task.model.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/model/Takeaway_Task.model.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/model/Takeaway_Task.model.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/persistence/Takeaway_Task.persistence.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/persistence/Takeaway_Task.persistence.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/persistence/Takeaway_Task.persistence.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/persistence/Takeaway_Task.persistence.unitTest.iml" />
+    </modules>
+  </component>
+</project>

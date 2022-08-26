@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_40">40dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="dimen32">32dp</dimen>
+    <dimen name="size_40">40dp</dimen>
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="action_bar_text_size">20sp</dimen>
+    <dimen name="margin_32">32dp</dimen>
+
+</resources>

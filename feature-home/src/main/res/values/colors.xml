@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="green">#4CAF50</color>
+    <color name="ratingColor">#CCB427</color>
+    <color name="red">#E91E63</color>
+    <color name="lightGray">#ABABAB</color>
+    <color name="textColor">#1e1e1e</color>
+
+    <color name="darkColor">#1e1e1e</color>
+
+    <color name="open">@color/green</color>
+    <color name="order_ahead">#FF9000</color>
+    <color name="closed">#b81d13</color>
+
+    <color name="cardBg">#F6F6F6</color>
+    <color name="white">#ffff</color>
+
+    <color name="blue">#357aac</color>
+</resources>

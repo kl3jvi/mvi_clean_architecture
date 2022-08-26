@@ -1,0 +1,25 @@
+<resources>
+    <string name="best_match_sort">Sort</string>
+    <string name="title">Sort Restaurants by:</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Sort</string>
+
+    <string name="distance">%s km</string>
+    <string name="min_cost">Minimal Cost €%.2s</string>
+
+    <string name="costs">Costs</string>
+    <string name="minimal_expense">Minimal expense: €%s</string>
+    <string name="delivery_fee">Delivery fee: €%s</string>
+    <string name="average_price">Average price: €%s</string>
+    <string name="distance_description">Distance: %s km</string>
+
+    <string name="restaurant_description">
+        This restaurant has an average %s rating. It has an average product price of €%s with €%s delivery
+        fee. Minimal cost for meal is €%s. It\'s location is %s km away from you.
+    </string>
+    <string name="description">Description</string>
+    <string name="location">Location</string>
+    <string name="add_restaurant_to_favorites">add restaurant to favorites</string>
+
+
+</resources>
