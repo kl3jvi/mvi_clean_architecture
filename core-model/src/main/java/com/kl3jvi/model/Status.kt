@@ -22,9 +22,10 @@ enum class Status {
         fun getStringFromType(status: String): String {
             return valueOf(status).name
         }
+
+        private inline fun <reified T : Enum<T>> enumValueOrNull(name: String): T? =
+            T::class.java.enumConstants?.firstOrNull { it.name == name }
     }
 }
 
-inline fun <reified T : Enum<T>> enumValueOrNull(name: String): T? =
-    T::class.java.enumConstants?.firstOrNull { it.name == name }
 

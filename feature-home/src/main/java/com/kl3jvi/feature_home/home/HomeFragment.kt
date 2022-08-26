@@ -28,7 +28,6 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: SharedViewModel by viewModels()
     private lateinit var restaurantAdapter: RestaurantAdapter
-    private var checkedItem = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -112,6 +111,7 @@ class HomeFragment : Fragment() {
                     else firstChar.toString()
                 }
         }.toTypedArray()
+
     }
 
     private fun MaterialAlertDialogBuilder.setSingleChoiceItemViewModelUpdated(sortingList: Array<String>) = apply {
