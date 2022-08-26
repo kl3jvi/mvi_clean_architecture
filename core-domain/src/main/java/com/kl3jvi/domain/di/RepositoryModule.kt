@@ -1,8 +1,9 @@
 package com.kl3jvi.domain.di
 
 
-import com.kl3jvi.domain.repository.RestaurantRepository
-import com.kl3jvi.domain.repository.RestaurantRepositoryImpl
+import com.kl3jvi.data.repository.RestaurantRepository
+import com.kl3jvi.data.repository.RestaurantRepositoryImpl
+
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
