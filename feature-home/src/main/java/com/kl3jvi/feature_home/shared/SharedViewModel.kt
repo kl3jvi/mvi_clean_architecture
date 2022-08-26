@@ -36,6 +36,8 @@ class SharedViewModel @Inject constructor(
     @VisibleForTesting(otherwise = PRIVATE)
     var sortOption = MutableStateFlow(BEST_MATCH)
 
+    var checkedItem = MutableStateFlow(0)
+
 
     val uiRestaurantState: StateFlow<RestaurantUiState> = sortOption.flatMapLatest { sortOption ->
         getRestaurantsUseCase().asResult().map { result ->

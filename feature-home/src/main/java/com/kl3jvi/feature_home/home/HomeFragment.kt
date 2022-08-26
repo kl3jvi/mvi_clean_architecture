@@ -8,9 +8,6 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kl3jvi.feature_home.R
@@ -22,7 +19,7 @@ import com.kl3jvi.feature_home.shared.SharedViewModel
 import com.kl3jvi.feature_home.util.createFragmentMenu
 import com.kl3jvi.feature_home.util.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collectLatest
 import java.util.*
 
 @AndroidEntryPoint
@@ -52,11 +49,9 @@ class HomeFragment : Fragment() {
                     val sortingList = sortingValues()
                     MaterialAlertDialogBuilder(requireContext())
                         .setTitle(resources.getString(R.string.title))
-                        .setSingleChoiceItems(sortingList, checkedItem) { dialog, which ->
-                            viewModel.onSortOptionSelected(SortOptions.values()[which])
-                            checkedItem = which
-                            dialog.dismiss()
-                        }.show()
+                        .setSingleChoiceItemViewModelUpdated(sortingList)
+                        .show()
+
                     true
                 }
 
@@ -70,14 +65,6 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-
-        /* A lifecycle owner that is tied to the view lifecycle. */
-        /* A coroutine scope that is tied to the lifecycle of the fragment. */
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.uiRestaurantState.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).collect {
-
-            }
-        }
 
         launchAndRepeatWithViewLifecycle {
             viewModel.uiRestaurantState.collect { restaurantDataState ->
@@ -126,7 +113,21 @@ class HomeFragment : Fragment() {
                 }
         }.toTypedArray()
     }
+
+    private fun MaterialAlertDialogBuilder.setSingleChoiceItemViewModelUpdated(sortingList: Array<String>) = apply {
+        launchAndRepeatWithViewLifecycle {
+            viewModel.checkedItem.collectLatest { number ->
+                setSingleChoiceItems(sortingList, number) { dialog, which ->
+                    viewModel.onSortOptionSelected(SortOptions.values()[which])
+                    viewModel.checkedItem.value = which
+                    dialog.dismiss()
+                }
+            }
+        }
+    }
+
 }
+
 
 
 
