@@ -17,9 +17,9 @@
 
 ## Screenshots
 
-[<img src="images/sc_1.png" width=23%>](images/sc_1.png)
-[<img src="images/sc_2.png" width=23%>](images/sc_2.png)
-[<img src="images/sc_3.png" width=23%>](images/sc_3.png)
+[<img src="images/sc_1.png" width=30%>](images/sc_1.png)
+[<img src="images/sc_2.png" width=30%>](images/sc_2.png)
+[<img src="images/sc_3.png" width=30%>](images/sc_3.png)
 
 
 ## Tech stack & Open-source libraries
