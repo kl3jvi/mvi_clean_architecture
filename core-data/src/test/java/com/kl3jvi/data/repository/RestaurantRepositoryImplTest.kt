@@ -20,7 +20,7 @@ import kotlin.test.assertTrue
 
 class RestaurantRepositoryImplTest {
 
-    private lateinit var subject: RestaurantRepository
+    private lateinit var subject: com.kl3jvi.domain.repository.RestaurantRepository
 
     private lateinit var restaurantDao: RestaurantDao
 

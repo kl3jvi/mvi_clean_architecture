@@ -1,6 +1,6 @@
 package com.kl3jvi.domain.use_cases
 
-import com.kl3jvi.data.repository.RestaurantRepository
+import com.kl3jvi.domain.repository.RestaurantRepository
 import com.kl3jvi.model.Restaurant
 import javax.inject.Inject
 

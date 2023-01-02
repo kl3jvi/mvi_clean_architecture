@@ -4,6 +4,7 @@ package com.kl3jvi.data.repository
 import com.kl3jvi.common.AppDispatchers.IO
 import com.kl3jvi.common.Dispatcher
 import com.kl3jvi.data.datasource.TakeAwayRemoteDataSource
+import com.kl3jvi.domain.repository.RestaurantRepository
 import com.kl3jvi.model.Restaurant
 import com.kl3jvi.persistence.dao.RestaurantDao
 import com.kl3jvi.persistence.mapper.toDomainModel
@@ -61,13 +62,10 @@ class RestaurantRepositoryImpl @Inject constructor(
         withContext(ioDispatcher) {
             val restaurantEntity = restaurant.toEntityModel()
             val id = local.getRestaurantIdByName(restaurantEntity.name)
-            if (id == null) {
-                local.insertRestaurant(restaurantEntity)
-                true
-            } else {
-                local.deleteRestaurant(id)
-                false
-            }
+            if (id == null) local.insertRestaurant(restaurantEntity)
+                .let { true }
+            else local.deleteRestaurant(id).let { false }
         }
+
 }
 

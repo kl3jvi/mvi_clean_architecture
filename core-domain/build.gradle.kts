@@ -14,23 +14,19 @@ android {
 }
 
 dependencies {
-    implementation(project(Dependencies.Modules.data))
-    implementation(project(Dependencies.Modules.persistence))
-//    Adding a dependency to the project.
+    // Adding a dependency to the project.
     implementation(project(Dependencies.Modules.common))
-    implementation(project(Dependencies.Modules.common))
+    implementation(project(Dependencies.Modules.model))
+
 
     implementation(Dependencies.Coroutines.core)
     implementation(Dependencies.Coroutines.android)
-
     implementation(Dependencies.Kotlin.serialization)
-    implementation(project(mapOf("path" to ":core-model")))
 
-    Dependencies.Testing(Dependencies.Testing.Type.UNIT).forEach { testImplementation(it) }
+    Dependencies.Testing(Dependencies.Testing.Type.UNIT).forEach(::testImplementation)
     testImplementation(Dependencies.Testing.coroutine)
 
-    Dependencies.Testing(Dependencies.Testing.Type.ANDROID)
-        .forEach { androidTestImplementation(it) }
+    Dependencies.Testing(Dependencies.Testing.Type.ANDROID).forEach(::androidTestImplementation)
     androidTestImplementation(Dependencies.Testing.coroutine)
 
 }

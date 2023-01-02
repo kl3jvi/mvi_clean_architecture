@@ -1,6 +1,6 @@
 package com.kl3jvi.feature_home.testdoubles
 
-import com.kl3jvi.data.repository.RestaurantRepository
+import com.kl3jvi.domain.repository.RestaurantRepository
 import com.kl3jvi.model.Restaurant
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow

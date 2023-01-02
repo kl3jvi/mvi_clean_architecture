@@ -35,7 +35,6 @@ class SharedViewModel @Inject constructor(
     /* A private variable that is only visible for testing. */
     @VisibleForTesting(otherwise = PRIVATE)
     var sortOption = MutableStateFlow(BEST_MATCH)
-
     var checkedItem = MutableStateFlow(0)
 
 
@@ -69,20 +68,29 @@ class SharedViewModel @Inject constructor(
 
     /* Sorting the list of restaurants based on the sort option. */
     private suspend fun List<Restaurant>.sortedInBg(option: SortOptions) =
-        /* Using the default dispatcher to sort the list of restaurants. */
         withContext(viewModelScope.coroutineContext.plus(defaultDispatcher)) {
-            sortedWith(compareBy<Restaurant> { it.isFavorite }.thenBy { it.status == Status.OPEN }
-                .thenBy { it.status == Status.ORDER_AHEAD }.thenBy { it.status == Status.CLOSED }.then(when (option) {
-                    BEST_MATCH -> compareBy { it.sortingValues?.bestMatch }
-                    NEWEST -> compareByDescending { it.sortingValues?.newest }
-                    RATING_AVERAGE -> compareBy { it.sortingValues?.ratingAverage }
-                    DISTANCE -> compareByDescending { it.sortingValues?.distance }
-                    POPULARITY -> compareBy { it.sortingValues?.popularity }
-                    AVERAGE_PRODUCT_PRICE -> compareByDescending { it.sortingValues?.averageProductPrice }
-                    DELIVERY_COST -> compareByDescending { it.sortingValues?.deliveryCosts }
-                    MIN_COST -> compareByDescending { it.sortingValues?.minCost }
-                }).reversed())
+
+            /* A function that returns a comparator based on the sort option. */
+            val sortFunction: Comparator<Restaurant> = when (option) {
+                BEST_MATCH -> compareBy { it.sortingValues?.bestMatch }
+                NEWEST -> compareByDescending { it.sortingValues?.newest }
+                RATING_AVERAGE -> compareBy { it.sortingValues?.ratingAverage }
+                DISTANCE -> compareByDescending { it.sortingValues?.distance }
+                POPULARITY -> compareBy { it.sortingValues?.popularity }
+                AVERAGE_PRODUCT_PRICE -> compareByDescending { it.sortingValues?.averageProductPrice }
+                DELIVERY_COST -> compareByDescending { it.sortingValues?.deliveryCosts }
+                MIN_COST -> compareByDescending { it.sortingValues?.minCost }
+            }
+
+            /* Sorting the list of restaurants based on the sort option. */
+            sortedWith(compareBy<Restaurant> { it.isFavorite }
+                .thenBy { it.status == Status.OPEN }
+                .thenBy { it.status == Status.ORDER_AHEAD }
+                .thenBy { it.status == Status.CLOSED }
+                .then(sortFunction)
+                .reversed())
         }
+
 
     /**
      * "When the user taps the favorite button, toggle the favorite state of the restaurant in the

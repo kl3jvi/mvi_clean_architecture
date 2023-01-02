@@ -17,6 +17,7 @@ dependencies {
     api(project(Dependencies.Modules.model))
     implementation(project(Dependencies.Modules.persistence))
     implementation(project(Dependencies.Modules.common))
+    implementation(project(Dependencies.Modules.domain))
 
 
     implementation(Dependencies.Kotlin.serialization)
