@@ -21,7 +21,6 @@ inline fun Fragment.launchAndRepeatWithViewLifecycle(
     crossinline block: suspend CoroutineScope.() -> Unit
 ) {
     viewLifecycleOwner.lifecycleScope.launch {
-        println("${this.coroutineContext} I'm working in thread ${Thread.currentThread().name}")
         viewLifecycleOwner.lifecycle.repeatOnLifecycle(minActiveState) {
             block()
         }

@@ -59,8 +59,7 @@ class RestaurantRepositoryImpl @Inject constructor(
             val restaurantEntity = restaurant.toEntityModel()
             val id = local.getRestaurantIdByName(restaurantEntity.name)
             if (id == null) {
-                local.insertRestaurant(restaurantEntity)
-                    .let { true }
+                local.insertRestaurant(restaurantEntity).let { true }
             } else {
                 local.deleteRestaurant(id).let { false }
             }

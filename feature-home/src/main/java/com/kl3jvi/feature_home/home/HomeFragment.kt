@@ -20,7 +20,7 @@ import com.kl3jvi.feature_home.util.createFragmentMenu
 import com.kl3jvi.feature_home.util.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import java.util.*
+import java.util.Locale
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -30,13 +30,8 @@ class HomeFragment : Fragment() {
     private lateinit var restaurantAdapter: RestaurantAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) = FragmentHomeBinding
-        .inflate(inflater)
-        .also { binding = it }
-        .run { root }
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ) = FragmentHomeBinding.inflate(inflater).also { binding = it }.run { root }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,10 +41,8 @@ class HomeFragment : Fragment() {
             when (it.itemId) {
                 R.id.sort_action -> {
                     val sortingList = sortingValues()
-                    MaterialAlertDialogBuilder(requireContext())
-                        .setTitle(resources.getString(R.string.title))
-                        .setSingleChoiceItemViewModelUpdated(sortingList)
-                        .show()
+                    MaterialAlertDialogBuilder(requireContext()).setTitle(resources.getString(R.string.title))
+                        .setSingleChoiceItemViewModelUpdated(sortingList).show()
 
                     true
                 }
@@ -69,9 +62,7 @@ class HomeFragment : Fragment() {
                 when (restaurantDataState) {
                     is RestaurantUiState.Error -> {
                         Toast.makeText(
-                            requireContext(),
-                            restaurantDataState.errorMessage,
-                            Toast.LENGTH_SHORT
+                            requireContext(), restaurantDataState.errorMessage, Toast.LENGTH_SHORT
                         ).show()
                     }
 
@@ -100,27 +91,27 @@ class HomeFragment : Fragment() {
      * @return An array of strings.
      */
     private fun sortingValues(): Array<String> {
-        return SortOptions.values().map { sortOption ->
-            sortOption.name.replace("_", " ").lowercase()
-                .replaceFirstChar { firstChar ->
-                    if (firstChar.isLowerCase()) {
-                        firstChar.titlecase(Locale.getDefault())
-                    } else {
-                        firstChar.toString()
-                    }
-                }
-        }.toTypedArray()
+        return SortOptions.values().map { it.name.normalized() }.toTypedArray()
     }
 
-    private fun MaterialAlertDialogBuilder.setSingleChoiceItemViewModelUpdated(sortingList: Array<String>) = apply {
-        launchAndRepeatWithViewLifecycle {
-            viewModel.checkedItem.collectLatest { number ->
-                setSingleChoiceItems(sortingList, number) { dialog, which ->
-                    viewModel.onSortOptionSelected(SortOptions.values()[which])
-                    viewModel.checkedItem.value = which
-                    dialog.dismiss()
+    private fun String.normalized(): String {
+        return this.replace("_", " ").lowercase().replaceFirstChar { firstChar ->
+                if (firstChar.isLowerCase()) firstChar.titlecase(Locale.getDefault())
+                else firstChar.toString()
+            }
+    }
+
+
+    private fun MaterialAlertDialogBuilder.setSingleChoiceItemViewModelUpdated(sortingList: Array<String>) =
+        apply {
+            launchAndRepeatWithViewLifecycle {
+                viewModel.checkedItem.collectLatest { number ->
+                    setSingleChoiceItems(sortingList, number) { dialog, which ->
+                        viewModel.onSortOptionSelected(SortOptions.values()[which])
+                        viewModel.checkedItem.value = which
+                        dialog.dismiss()
+                    }
                 }
             }
         }
-    }
 }

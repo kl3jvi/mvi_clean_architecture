@@ -7,5 +7,6 @@ import javax.inject.Inject
 class ToggleFavoriteUseCase @Inject constructor(
     private val repository: RestaurantRepository
 ) {
-    suspend operator fun invoke(restaurant: Restaurant) = repository.toggleRestaurantFavorite(restaurant)
+    suspend operator fun invoke(restaurant: Restaurant) =
+        repository.toggleRestaurantFavorite(restaurant)
 }

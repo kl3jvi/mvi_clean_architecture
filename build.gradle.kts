@@ -48,7 +48,5 @@ buildscript {
         classpath(Config.AndroidClassPath.kotlinPlugin)
         classpath(Config.AndroidClassPath.navigation)
         classpath(Config.AndroidClassPath.daggerHilt)
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
-        classpath("com.android.tools.build:gradle:7.3.1")
     }
 }
