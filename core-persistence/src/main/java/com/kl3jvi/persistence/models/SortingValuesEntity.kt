@@ -2,7 +2,6 @@ package com.kl3jvi.persistence.models
 
 import androidx.room.ColumnInfo
 
-
 data class SortingValuesEntity(
     @ColumnInfo(name = "best_match")
     val bestMatch: Float,
@@ -19,5 +18,5 @@ data class SortingValuesEntity(
     @ColumnInfo(name = "delivery_costs")
     val deliveryCosts: Long,
     @ColumnInfo(name = "min_cost")
-    val minCost: Long,
+    val minCost: Long
 )

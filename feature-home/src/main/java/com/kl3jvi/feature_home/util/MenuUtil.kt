@@ -13,13 +13,17 @@ fun Fragment.createFragmentMenu(
     selectedItem: (menuItem: MenuItem) -> Boolean
 ) {
     val menuHost = requireActivity()
-    menuHost.addMenuProvider(object : MenuProvider {
-        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-            menuInflater.inflate(menuLayout, menu)
-        }
+    menuHost.addMenuProvider(
+        object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(menuLayout, menu)
+            }
 
-        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-            return selectedItem(menuItem)
-        }
-    }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return selectedItem(menuItem)
+            }
+        },
+        viewLifecycleOwner,
+        Lifecycle.State.RESUMED
+    )
 }

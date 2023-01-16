@@ -1,9 +1,8 @@
 package com.kl3jvi.data.repository
 
-
 import com.kl3jvi.common.AppDispatchers.IO
 import com.kl3jvi.common.Dispatcher
-import com.kl3jvi.data.datasource.TakeAwayRemoteDataSource
+import com.kl3jvi.domain.datasource.TakeAwayRemoteDataSource
 import com.kl3jvi.domain.repository.RestaurantRepository
 import com.kl3jvi.model.Restaurant
 import com.kl3jvi.persistence.dao.RestaurantDao
@@ -30,7 +29,6 @@ class RestaurantRepositoryImpl @Inject constructor(
      * @return A list of restaurants.
      */
     override fun getRestaurants(): Flow<List<Restaurant>> {
-
         /* Getting the favorite restaurants from the database and converting them to domain models. */
         val favoriteRestaurantsStream =
             local.getFavoriteRestaurants().mapNotNull { it?.map(RestaurantEntity::toDomainModel) }
@@ -38,7 +36,6 @@ class RestaurantRepositoryImpl @Inject constructor(
         /* Getting the restaurants from the network and converting them to domain models. */
         val networkRestaurantsStream =
             network.getRestaurants()
-
 
         /* Combining the two streams into a single stream. */
         return combine(
@@ -51,7 +48,6 @@ class RestaurantRepositoryImpl @Inject constructor(
         }
     }
 
-
     /**
      * > The function first gets the restaurant id from the local database, if the id is null, it
      * inserts the restaurant into the database, otherwise it deletes the restaurant from the database
@@ -62,10 +58,11 @@ class RestaurantRepositoryImpl @Inject constructor(
         withContext(ioDispatcher) {
             val restaurantEntity = restaurant.toEntityModel()
             val id = local.getRestaurantIdByName(restaurantEntity.name)
-            if (id == null) local.insertRestaurant(restaurantEntity)
-                .let { true }
-            else local.deleteRestaurant(id).let { false }
+            if (id == null) {
+                local.insertRestaurant(restaurantEntity)
+                    .let { true }
+            } else {
+                local.deleteRestaurant(id).let { false }
+            }
         }
-
 }
-

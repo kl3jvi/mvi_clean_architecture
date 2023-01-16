@@ -4,7 +4,6 @@ import com.kl3jvi.model.Restaurant
 import com.kl3jvi.model.Status
 import com.kl3jvi.persistence.models.RestaurantEntity
 
-
 fun RestaurantEntity.toDomainModel() = Restaurant(
     name = name,
     isFavorite = true,
@@ -17,4 +16,3 @@ fun Restaurant.toEntityModel() = RestaurantEntity(
     status = Status.getStringFromType(status.name),
     sortingValues = sortingValues?.toEntityModel()
 )
-

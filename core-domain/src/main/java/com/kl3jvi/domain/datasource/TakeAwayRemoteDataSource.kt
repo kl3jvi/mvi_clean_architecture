@@ -1,4 +1,4 @@
-package com.kl3jvi.data.datasource
+package com.kl3jvi.domain.datasource
 
 import com.kl3jvi.model.Restaurant
 import kotlinx.coroutines.flow.Flow

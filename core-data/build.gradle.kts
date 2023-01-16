@@ -12,24 +12,20 @@ android {
     }
 }
 
-
 dependencies {
     api(project(Dependencies.Modules.model))
     implementation(project(Dependencies.Modules.persistence))
     implementation(project(Dependencies.Modules.common))
     implementation(project(Dependencies.Modules.domain))
 
-
     implementation(Dependencies.Kotlin.serialization)
     implementation(Dependencies.Coroutines.core)
     implementation(Dependencies.Coroutines.android)
-
 
     implementation(Dependencies.Room.ktx)
 
     kapt(Dependencies.Room.compiler)
     kaptTest(Dependencies.Hilt.hiltAndroidCompiler)
-
 
     Dependencies.Testing(Dependencies.Testing.Type.UNIT).forEach { testImplementation(it) }
     testImplementation(Dependencies.Testing.coroutine)
@@ -37,6 +33,4 @@ dependencies {
     Dependencies.Testing(Dependencies.Testing.Type.ANDROID)
         .forEach { androidTestImplementation(it) }
     androidTestImplementation(Dependencies.Testing.coroutine)
-
-
 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
-
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.kl3jvi.feature_home.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint

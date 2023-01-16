@@ -54,5 +54,4 @@ dependencies {
 
     implementation("com.github.kl3jvi.mappy:mappy-core:0.0.1")
     kapt("com.github.kl3jvi.mappy:mappy-processor:0.0.1")
-
 }

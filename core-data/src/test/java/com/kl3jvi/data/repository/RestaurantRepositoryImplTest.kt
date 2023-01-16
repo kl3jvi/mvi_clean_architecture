@@ -1,13 +1,14 @@
 package com.kl3jvi.data.repository
 
-import com.kl3jvi.data.datasource.TakeAwayRemoteDataSource
 import com.kl3jvi.data.testdoubles.TestRestaurantDao
 import com.kl3jvi.data.testdoubles.TestTakeAwayRemoteDataSource
+import com.kl3jvi.domain.datasource.TakeAwayRemoteDataSource
+import com.kl3jvi.domain.repository.RestaurantRepository
 import com.kl3jvi.model.Restaurant
 import com.kl3jvi.model.SortingValues
 import com.kl3jvi.model.Status
-
 import com.kl3jvi.persistence.dao.RestaurantDao
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -17,17 +18,16 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-
+@ExperimentalCoroutinesApi
 class RestaurantRepositoryImplTest {
 
-    private lateinit var subject: com.kl3jvi.domain.repository.RestaurantRepository
+    private lateinit var subject: RestaurantRepository
 
     private lateinit var restaurantDao: RestaurantDao
 
     private lateinit var network: TakeAwayRemoteDataSource
 
     private val testDispatcher = StandardTestDispatcher()
-
 
     @Before
     fun setup() {
@@ -44,8 +44,9 @@ class RestaurantRepositoryImplTest {
                         3.4F,
                         123,
                         15,
-                        1,
-                    ), status = Status.OPEN
+                        1
+                    ),
+                    status = Status.OPEN
                 )
             )
         )
@@ -58,14 +59,14 @@ class RestaurantRepositoryImplTest {
 
     @Test
     fun get_restaurants_should_return_combined() = runTest(testDispatcher) {
-
         val response = listOf(
             Restaurant(
                 "Fast Food",
                 Status.CLOSED,
                 isFavorite = true,
                 sortingValues = null
-            ), Restaurant(
+            ),
+            Restaurant(
                 "Fake Restaurant",
                 Status.OPEN,
                 isFavorite = false,
@@ -77,8 +78,8 @@ class RestaurantRepositoryImplTest {
                     3.4F,
                     123,
                     15,
-                    1,
-                ),
+                    1
+                )
             )
         )
 
@@ -89,9 +90,9 @@ class RestaurantRepositoryImplTest {
         assertTrue { actual.all { it.isFavorite in response.map { it.isFavorite } } }
         assertTrue { actual.first().isFavorite }
         assertEquals(
-            actual.size, response.size
+            actual.size,
+            response.size
         )
-
     }
 
     @Test
@@ -107,6 +108,4 @@ class RestaurantRepositoryImplTest {
         val actual = subject.toggleRestaurantFavorite(data)
         assertTrue(actual)
     }
-
-
 }

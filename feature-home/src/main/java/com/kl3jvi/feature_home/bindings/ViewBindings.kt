@@ -38,7 +38,6 @@ fun TextView.updateTextByStatus(status: Status) {
     }
 }
 
-
 @BindingAdapter("statusTextOnly")
 fun TextView.changeTextByStatus(status: Status) {
     text = when (status) {

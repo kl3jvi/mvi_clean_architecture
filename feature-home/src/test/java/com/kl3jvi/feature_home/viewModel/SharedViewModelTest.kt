@@ -19,7 +19,6 @@ import org.junit.Rule
 import org.junit.Test
 import kotlin.test.assertEquals
 
-
 class SharedViewModelTest {
 
     @get:Rule
@@ -31,7 +30,6 @@ class SharedViewModelTest {
 
     private lateinit var viewModel: SharedViewModel
     private var testDispatcher: TestDispatcher = StandardTestDispatcher()
-
 
     @Before
     fun setup() {
@@ -54,7 +52,6 @@ class SharedViewModelTest {
         )
     }
 
-
     @Test
     fun uiRestaurantState_whenCollectSuccess_thenShowLoading() = runTest(testDispatcher) {
         val collectJob =
@@ -65,7 +62,6 @@ class SharedViewModelTest {
 
         collectJob.cancel()
     }
-
 
     @Test
     fun update_SortingType_when_option_changed() = runTest(testDispatcher) {

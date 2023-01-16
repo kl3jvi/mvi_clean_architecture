@@ -1,10 +1,10 @@
 package com.kl3jvi.domain.mapper
 //
-//import com.kl3jvi.domain.model.Status
-//import org.junit.Test
-//import kotlin.test.assertEquals
+// import com.kl3jvi.domain.model.Status
+// import org.junit.Test
+// import kotlin.test.assertEquals
 //
-//class NetworkMapperTest {
+// class NetworkMapperTest {
 //
 //    @Test
 //    fun network_restaurant_can_be_mapped_to_domain_model() {
@@ -62,4 +62,4 @@ package com.kl3jvi.domain.mapper
 //        assertEquals(15, domainModel.deliveryCosts)
 //        assertEquals(1, domainModel.minCost)
 //    }
-//}
+// }

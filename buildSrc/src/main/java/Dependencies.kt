@@ -13,12 +13,11 @@ object Dependencies {
         const val feature_home = ":feature-home"
     }
 
-
     object Kotlin : Group {
         private const val core = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlinVersion}"
         private const val coreJDK7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlinVersion}"
         const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serialization}"
-        
+
         override val libList: List<String>
             get() = listOf(core, coreJDK7)
     }
@@ -27,7 +26,6 @@ object Dependencies {
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
     }
-
 
     object Hilt {
         const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.DI.hiltVer}"
@@ -56,7 +54,6 @@ object Dependencies {
     object Image {
         const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
         const val glideKapt = "com.github.bumptech.glide:compiler:${Versions.glide}"
-
     }
 
     object AndroidX : Group {
@@ -72,14 +69,12 @@ object Dependencies {
         const val compiler = "androidx.room:room-compiler:${Versions.AndroidJetPack.room}"
     }
 
-
     object AndroidLifecycle : Group {
         private const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidJetPack.lifecycle}"
 
         override val libList: List<String>
             get() = listOf(viewModel)
     }
-
 
     object Testing {
 
@@ -105,14 +100,17 @@ object Dependencies {
         const val uiAutomator = "androidx.test.uiautomator:uiautomator:${Versions.Testing.uiAutomator}"
         const val macroBenchmarkJunit = "androidx.benchmark:benchmark-macro-junit4:${Versions.Testing.macroBenchmarkJunit}"
 
-
-
         private const val testRunner = "androidx.test:runner:${Versions.Testing.androidTestCore}"
         private const val testRules = "androidx.test:rules:${Versions.Testing.androidTestCore}"
 
         operator fun invoke(type: Type) = when (type) {
             Type.UNIT -> listOf(
-                jUnit, archCore, kotlinJUnit, truth, turbine, hiltTest
+                jUnit,
+                archCore,
+                kotlinJUnit,
+                truth,
+                turbine,
+                hiltTest
             )
 
             Type.ANDROID -> listOf(
@@ -125,5 +123,3 @@ object Dependencies {
         }
     }
 }
-
-

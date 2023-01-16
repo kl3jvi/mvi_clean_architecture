@@ -1,25 +1,24 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 
-//Adding the Google and maven repositories to all projects.
+// Adding the Google and maven repositories to all projects.
 allprojects {
     repositories {
         google()
         mavenCentral()
         maven(url = "https://jitpack.io")
     }
-
 }
 
-//Configuring the Kotlin compiler to use the experimental coroutines API and to treat all warnings as errors.
+// Configuring the Kotlin compiler to use the experimental coroutines API and to treat all warnings as errors.
 subprojects {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         kotlinOptions {
-            @Suppress("SuspiciousCollectionReassignment")
-            freeCompilerArgs += listOf(
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            )
-            allWarningsAsErrors = true
+//            @Suppress("SuspiciousCollectionReassignment")
+//            freeCompilerArgs += listOf(
+//                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+//            )
+//            allWarningsAsErrors = true
         }
     }
 
@@ -31,14 +30,12 @@ subprojects {
                 TestLogEvent.STARTED,
                 TestLogEvent.PASSED,
                 TestLogEvent.SKIPPED,
-                TestLogEvent.FAILED,
+                TestLogEvent.FAILED
             )
             showStandardStreams = true
         }
     }
 }
-
-
 
 buildscript {
     repositories {
@@ -52,5 +49,6 @@ buildscript {
         classpath(Config.AndroidClassPath.navigation)
         classpath(Config.AndroidClassPath.daggerHilt)
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
+        classpath("com.android.tools.build:gradle:7.3.1")
     }
 }

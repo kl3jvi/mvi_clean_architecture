@@ -64,11 +64,9 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-
         launchAndRepeatWithViewLifecycle {
             viewModel.uiRestaurantState.collect { restaurantDataState ->
                 when (restaurantDataState) {
-
                     is RestaurantUiState.Error -> {
                         Toast.makeText(
                             requireContext(),
@@ -92,7 +90,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun showProgressBar(isVisible: Boolean) {
         binding.loadingProgress.isVisible = isVisible
     }
@@ -106,12 +103,13 @@ class HomeFragment : Fragment() {
         return SortOptions.values().map { sortOption ->
             sortOption.name.replace("_", " ").lowercase()
                 .replaceFirstChar { firstChar ->
-                    if (firstChar.isLowerCase())
+                    if (firstChar.isLowerCase()) {
                         firstChar.titlecase(Locale.getDefault())
-                    else firstChar.toString()
+                    } else {
+                        firstChar.toString()
+                    }
                 }
         }.toTypedArray()
-
     }
 
     private fun MaterialAlertDialogBuilder.setSingleChoiceItemViewModelUpdated(sortingList: Array<String>) = apply {
@@ -125,9 +123,4 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
 }
-
-
-
-

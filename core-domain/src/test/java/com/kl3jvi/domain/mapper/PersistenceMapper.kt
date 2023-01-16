@@ -1,11 +1,5 @@
 package com.kl3jvi.domain.mapper
 
-
-import com.kl3jvi.persistence.models.RestaurantEntity
-import com.kl3jvi.persistence.models.SortingValuesEntity
-import org.junit.Test
-import kotlin.test.assertEquals
-
 class PersistenceMapper {
 
 //    @Test
@@ -90,5 +84,4 @@ class PersistenceMapper {
 //
 //
 //    }
-
 }

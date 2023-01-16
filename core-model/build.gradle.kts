@@ -4,7 +4,6 @@ plugins {
     id("klejvi.plugin.android")
     id("kotlin-parcelize")
     kotlin("plugin.serialization") version "1.4.21"
-
 }
 
 android {

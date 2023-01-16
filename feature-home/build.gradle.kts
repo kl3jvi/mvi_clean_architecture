@@ -20,11 +20,9 @@ android {
 
 dependencies {
 
-
     implementation(project(Dependencies.Modules.domain))
     implementation(project(Dependencies.Modules.data))
     implementation(project(Dependencies.Modules.common))
-
 
     implementation(Dependencies.Navigation.fragment)
     implementation(Dependencies.Navigation.ui)
@@ -40,13 +38,10 @@ dependencies {
     Dependencies.AndroidUI.libList.forEach { implementation(it) }
     Dependencies.AndroidLifecycle.libList.forEach { implementation(it) }
 
-
     // Unit Testing
     testImplementation(Dependencies.Testing.coroutine)
     Dependencies.Testing(Dependencies.Testing.Type.UNIT).forEach { testImplementation(it) }
     // Android Testing
     Dependencies.Testing(Dependencies.Testing.Type.ANDROID)
         .forEach { androidTestImplementation(it) }
-
-
 }

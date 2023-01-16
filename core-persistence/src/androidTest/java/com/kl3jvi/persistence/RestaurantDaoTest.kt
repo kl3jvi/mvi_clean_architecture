@@ -9,19 +9,15 @@ import com.kl3jvi.persistence.dao.RestaurantDao
 import com.kl3jvi.persistence.database.AppDatabase
 import com.kl3jvi.persistence.models.RestaurantEntity
 import com.kl3jvi.persistence.models.SortingValuesEntity
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-
-
 class RestaurantDaoTest {
 
     private lateinit var restaurantDao: RestaurantDao
     private lateinit var db: AppDatabase
-
 
     @Before
     fun createDb() {
@@ -45,7 +41,7 @@ class RestaurantDaoTest {
             3.4F,
             123,
             15,
-            1,
+            1
         )
     )
 
@@ -82,14 +78,13 @@ class RestaurantDaoTest {
                     3.4F,
                     123,
                     15,
-                    1,
+                    1
                 )
             )
         )!!
 
         assertThat(restaurantDao.getRestaurantById(entity.id)).isNotNull()
         assertThat(restaurantDao.getRestaurantById(duplicateRestaurantId)).isNull()
-
     }
 
     /* Testing that when a restaurant is inserted, it can be deleted. */
@@ -139,7 +134,7 @@ private fun testSortingValuesEntity(
     popularity: Float,
     averageProductPrice: Long,
     deliveryCosts: Long,
-    minCost: Long,
+    minCost: Long
 ) = SortingValuesEntity(
     bestMatch,
     newest,

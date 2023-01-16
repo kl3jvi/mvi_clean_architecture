@@ -1,5 +1,3 @@
-
-
 <h2 align="center"><b>🍔 Restaurant App - MVI Architecture Example </b></h2>
 <h4 align="center">Restaurant listing android app using MVI architecture. Using jetpack libraries such as Flows,Coroutines, Dagger-Hilt, Room etc. </h4>
 

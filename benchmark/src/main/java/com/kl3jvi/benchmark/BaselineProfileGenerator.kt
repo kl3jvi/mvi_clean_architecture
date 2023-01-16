@@ -7,7 +7,6 @@ import androidx.test.uiautomator.Direction
 import org.junit.Rule
 import org.junit.Test
 
-
 /**
  * Generates a baseline profile which can be copied to `app/src/main/baseline-prof.txt`.
  */

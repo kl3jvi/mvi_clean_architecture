@@ -11,7 +11,6 @@ object Versions {
         const val hiltVer = "2.40"
     }
 
-
     object AndroidUI {
         const val appcompat = "1.3.0"
         const val constraintLayout = "2.0.4"
@@ -43,6 +42,5 @@ object Versions {
         const val espresso = "3.4.0"
         const val uiAutomator = "2.2.0"
         const val macroBenchmarkJunit = "1.1.0"
-
     }
 }

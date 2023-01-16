@@ -23,20 +23,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-
 @HiltViewModel
 class SharedViewModel @Inject constructor(
     private val getRestaurantsUseCase: GetRestaurantsUseCase,
     private val toggleFavoriteUseCase: ToggleFavoriteUseCase,
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
-    @Dispatcher(DEFAULT) private val defaultDispatcher: CoroutineDispatcher,
+    @Dispatcher(DEFAULT) private val defaultDispatcher: CoroutineDispatcher
 ) : ViewModel(), OnFavoriteButtonClickListener {
 
     /* A private variable that is only visible for testing. */
     @VisibleForTesting(otherwise = PRIVATE)
     var sortOption = MutableStateFlow(BEST_MATCH)
     var checkedItem = MutableStateFlow(0)
-
 
     val uiRestaurantState: StateFlow<RestaurantUiState> = sortOption.flatMapLatest { sortOption ->
         getRestaurantsUseCase().asResult().map { result ->
@@ -50,11 +48,11 @@ class SharedViewModel @Inject constructor(
             }
         }
     }.stateIn(
-        scope = viewModelScope,/*Keeps the upstream flow active for 5 seconds more after the disappearance of the last collector.
+        scope = viewModelScope, /*Keeps the upstream flow active for 5 seconds more after the disappearance of the last collector.
             That avoids restarting the upstream flow in certain situations such as configuration changes. */
-        started = SharingStarted.WhileSubscribed(5_000), initialValue = RestaurantUiState.Loading
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = RestaurantUiState.Loading
     )
-
 
     /**
      * > When the user selects a sort option, update the sort option in the view model
@@ -65,11 +63,9 @@ class SharedViewModel @Inject constructor(
         sortOption.value = optionSelected
     }
 
-
     /* Sorting the list of restaurants based on the sort option. */
     private suspend fun List<Restaurant>.sortedInBg(option: SortOptions) =
         withContext(viewModelScope.coroutineContext.plus(defaultDispatcher)) {
-
             /* A function that returns a comparator based on the sort option. */
             val sortFunction: Comparator<Restaurant> = when (option) {
                 BEST_MATCH -> compareBy { it.sortingValues?.bestMatch }
@@ -83,14 +79,15 @@ class SharedViewModel @Inject constructor(
             }
 
             /* Sorting the list of restaurants based on the sort option. */
-            sortedWith(compareBy<Restaurant> { it.isFavorite }
-                .thenBy { it.status == Status.OPEN }
-                .thenBy { it.status == Status.ORDER_AHEAD }
-                .thenBy { it.status == Status.CLOSED }
-                .then(sortFunction)
-                .reversed())
+            sortedWith(
+                compareBy<Restaurant> { it.isFavorite }
+                    .thenBy { it.status == Status.OPEN }
+                    .thenBy { it.status == Status.ORDER_AHEAD }
+                    .thenBy { it.status == Status.CLOSED }
+                    .then(sortFunction)
+                    .reversed()
+            )
         }
-
 
     /**
      * "When the user taps the favorite button, toggle the favorite state of the restaurant in the

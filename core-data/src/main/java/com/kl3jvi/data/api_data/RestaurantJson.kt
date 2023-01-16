@@ -4,7 +4,7 @@ import org.intellij.lang.annotations.Language
 
 object RestaurantJson {
     @Language("JSON")
-    val restaurantData = """{
+    var restaurantData = """{
 	"restaurants": [{
 		"name": "Tanoshii Sushi",
 		"status": "open",
@@ -253,5 +253,6 @@ object RestaurantJson {
 			"minCost": 5000
 		}
 	}]
-}""".trimIndent()
+}
+    """.trimIndent()
 }

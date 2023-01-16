@@ -14,7 +14,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.lang.Thread.sleep
-import kotlin.concurrent.thread
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -37,7 +36,6 @@ class SortSelector {
         val sortButton = device.findObject(By.res(packageName, "sort_action"))
         val recycler = device.findObject(By.res(packageName, "restaurantRv"))
         recycler.setGestureMargin(device.displayWidth / 5)
-
 
         repeat(3) {
             sortButton.click()
@@ -66,9 +64,6 @@ class SortSelector {
             waitForTextShown("Min cost")
             sortByRatingAverage.click()
             waitForTextGone("Min cost")
-
-
         }
-
     }
 }

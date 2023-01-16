@@ -41,7 +41,6 @@ class ClickBenchmarks {
         }
     }
 
-
     @Test
     fun recyclerViewFavoriteItemClick() {
         var firstStart = true

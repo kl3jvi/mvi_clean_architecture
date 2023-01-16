@@ -11,7 +11,6 @@ import com.kl3jvi.feature_home.R
 import com.kl3jvi.feature_home.databinding.ItemRestaurantBinding
 import com.kl3jvi.model.Restaurant
 
-
 class RestaurantAdapter(
     private val onFavoriteClickListener: OnFavoriteButtonClickListener
 ) : ListAdapter<Restaurant, RestaurantAdapter.RestaurantViewHolder>(RestaurantDiffUtil) {
@@ -27,7 +26,7 @@ class RestaurantAdapter(
                             R.id.to_details,
                             bundleOf(
                                 "title" to restaurant.name,
-                                "restaurantData" to restaurant,
+                                "restaurantData" to restaurant
                             )
                         ).onClick(view)
                     }
@@ -36,7 +35,6 @@ class RestaurantAdapter(
             }
         }
 
-
         fun bind(restaurant: Restaurant?) {
             binding.apply {
                 restaurantInfo = restaurant
@@ -44,7 +42,6 @@ class RestaurantAdapter(
             }
         }
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
         val binding =
@@ -61,16 +58,11 @@ class RestaurantAdapter(
     private object RestaurantDiffUtil : DiffUtil.ItemCallback<Restaurant>() {
         override fun areItemsTheSame(oldItem: Restaurant, newItem: Restaurant) =
             oldItem.name == newItem.name &&
-                    oldItem.sortingValues == newItem.sortingValues &&
-                    oldItem.status == newItem.status &&
-                    oldItem.isFavorite == newItem.isFavorite
-
+                oldItem.sortingValues == newItem.sortingValues &&
+                oldItem.status == newItem.status &&
+                oldItem.isFavorite == newItem.isFavorite
 
         override fun areContentsTheSame(oldItem: Restaurant, newItem: Restaurant) =
             oldItem == newItem
-
     }
 }
-
-
-

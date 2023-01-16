@@ -7,7 +7,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-
 /**
  * "Launch a coroutine that repeats a block of code until the view lifecycle is destroyed."
  *

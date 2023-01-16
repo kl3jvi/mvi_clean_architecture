@@ -9,7 +9,6 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.dependencies
 
-
 open class AndroidPlugin : Plugin<Project> {
 
     /**
@@ -105,7 +104,6 @@ open class AndroidPlugin : Plugin<Project> {
         fun implementation(definition: Any) = "implementation"(definition)
         fun testImplementation(definition: Any) = "testImplementation"(definition)
         fun androidTestImplementation(definition: Any) = "androidTestImplementation"(definition)
-
 
         Dependencies.Kotlin.libList.forEach { implementation(it) }
         with(Dependencies.Hilt) {

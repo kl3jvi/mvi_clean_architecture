@@ -34,11 +34,9 @@ interface RestaurantDao {
     @Query("SELECT id FROM table_restaurant WHERE name = :name")
     suspend fun getRestaurantIdByName(name: String): Long?
 
-
     @TestOnly
     @Query("SELECT * FROM table_restaurant WHERE id = :id")
     suspend fun getRestaurantById(id: Long): RestaurantEntity
-
 
     /**
      * Delete a restaurant from the database
@@ -47,5 +45,4 @@ interface RestaurantDao {
      */
     @Query("DELETE FROM table_restaurant WHERE id =:id")
     suspend fun deleteRestaurant(id: Long)
-
 }

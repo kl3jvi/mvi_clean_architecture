@@ -21,7 +21,7 @@ class NetworkEntityTest {
                 3.4F,
                 123,
                 15,
-                1,
+                1
             ),
             status = Status.OPEN
         )
@@ -31,7 +31,6 @@ class NetworkEntityTest {
         assertEquals(1.3F, entity.sortingValues?.bestMatch)
         assertEquals(Status.OPEN.name, entity.status)
     }
-
 
     @Test
     fun network_sorting_values_can_be_mapped_to_sorting_values_entity() {
@@ -43,7 +42,7 @@ class NetworkEntityTest {
             3.4F,
             123,
             15,
-            1,
+            1
         )
         val entity = networkModel.toEntityModel()
 

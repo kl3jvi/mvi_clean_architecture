@@ -11,7 +11,6 @@ class TestRestaurantRepository : RestaurantRepository {
     private val restaurantsFlow =
         MutableSharedFlow<List<Restaurant>>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
-
     /**
      * A test-only API to allow controlling the list of restaurants resources from tests.
      */
@@ -20,7 +19,6 @@ class TestRestaurantRepository : RestaurantRepository {
     }
 
     override fun getRestaurants(): Flow<List<Restaurant>> = restaurantsFlow
-
 
     override suspend fun toggleRestaurantFavorite(restaurant: Restaurant): Boolean {
         throw NotImplementedError("Unused in ViewModel tests")

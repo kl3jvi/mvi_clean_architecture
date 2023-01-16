@@ -18,7 +18,6 @@ dependencies {
     implementation(project(Dependencies.Modules.common))
     implementation(project(Dependencies.Modules.model))
 
-
     implementation(Dependencies.Coroutines.core)
     implementation(Dependencies.Coroutines.android)
     implementation(Dependencies.Kotlin.serialization)
@@ -28,5 +27,4 @@ dependencies {
 
     Dependencies.Testing(Dependencies.Testing.Type.ANDROID).forEach(::androidTestImplementation)
     androidTestImplementation(Dependencies.Testing.coroutine)
-
 }

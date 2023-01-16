@@ -2,8 +2,8 @@ package com.kl3jvi.data.di
 
 import android.content.Context
 import android.content.res.AssetManager
-import com.kl3jvi.data.datasource.TakeAwayRemoteDataSource
 import com.kl3jvi.data.datasource.TakeAwayRemoteDataSourceImpl
+import com.kl3jvi.domain.datasource.TakeAwayRemoteDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

@@ -14,7 +14,7 @@ data class SortingValues(
     val popularity: Float,
     val averageProductPrice: Long,
     val deliveryCosts: Long,
-    val minCost: Long,
+    val minCost: Long
 ) : Parcelable {
-    fun getDistanceInKM(): String = (distance / 1000).toDouble().toString();
+    fun getDistanceInKM(): String = (distance / 1000).toDouble().toString()
 }

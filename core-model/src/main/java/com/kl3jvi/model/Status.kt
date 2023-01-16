@@ -27,5 +27,3 @@ enum class Status {
             T::class.java.enumConstants?.firstOrNull { it.name == name }
     }
 }
-
-

@@ -19,7 +19,6 @@ dependencies {
 
     implementation(Dependencies.Coroutines.android)
 
-
     Dependencies.Testing(Dependencies.Testing.Type.UNIT).forEach { testImplementation(it) }
 
     androidTestImplementation(Dependencies.Testing.coroutine)

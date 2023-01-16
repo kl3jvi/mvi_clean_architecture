@@ -1,6 +1,5 @@
 package com.kl3jvi.feature_home.details
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +12,6 @@ import com.kl3jvi.feature_home.R
 import com.kl3jvi.feature_home.databinding.FragmentDetailsBinding
 import com.kl3jvi.feature_home.shared.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
@@ -32,7 +29,6 @@ class DetailsFragment : Fragment() {
         .also { binding = it }
         .root
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.restaurantInfo = restaurantData
@@ -47,7 +43,7 @@ class DetailsFragment : Fragment() {
 
     private fun TextView.generateDescription() {
         text = restaurantData.sortingValues?.run {
-            resources.getString(R.string.restaurant_description).format(
+            getString(R.string.restaurant_description).format(
                 ratingAverage.toString(),
                 averageProductPrice.toString(),
                 deliveryCosts.toString(),

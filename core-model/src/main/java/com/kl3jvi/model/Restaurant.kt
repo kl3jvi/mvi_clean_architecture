@@ -6,7 +6,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import kotlin.math.roundToInt
 
-
 @Parcelize
 @Serializable
 data class Restaurant(

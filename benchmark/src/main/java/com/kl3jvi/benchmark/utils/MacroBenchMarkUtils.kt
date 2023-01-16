@@ -4,8 +4,7 @@ import androidx.benchmark.macro.MacrobenchmarkScope
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Until
 
-
-fun MacrobenchmarkScope.clickOnFirstItem(withText:String) {
+fun MacrobenchmarkScope.clickOnFirstItem(withText: String) {
     clickOnText(withText)
     waitForTextShown("Description")
     // go back at home
