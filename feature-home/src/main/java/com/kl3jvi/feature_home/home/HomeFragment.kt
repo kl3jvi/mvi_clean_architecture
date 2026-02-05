@@ -11,22 +11,25 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kl3jvi.feature_home.R
-import com.kl3jvi.feature_home.adapter.OnFavoriteButtonClickListener
 import com.kl3jvi.feature_home.adapter.RestaurantAdapter
 import com.kl3jvi.feature_home.databinding.FragmentHomeBinding
-import com.kl3jvi.feature_home.shared.RestaurantUiState
-import com.kl3jvi.feature_home.shared.SharedViewModel
 import com.kl3jvi.feature_home.util.createFragmentMenu
 import com.kl3jvi.feature_home.util.launchAndRepeatWithViewLifecycle
+import com.kl3jvi.model.Restaurant
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import java.util.Locale
 
+/**
+ * Home Fragment implementing MVI pattern.
+ * - Renders [HomeState] from ViewModel
+ * - Emits [HomeIntent] for user actions
+ * - Reacts to [HomeEffect] for one-time events
+ */
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel: SharedViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
     private lateinit var restaurantAdapter: RestaurantAdapter
 
     override fun onCreateView(
@@ -35,20 +38,17 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        restaurantAdapter = RestaurantAdapter(viewModel as OnFavoriteButtonClickListener)
+        
+        setupAdapter()
+        setupMenu()
+        observeState()
+        observeEffects()
+    }
 
-        createFragmentMenu(R.menu.sort_options) {
-            when (it.itemId) {
-                R.id.sort_action -> {
-                    val sortingList = sortingValues()
-                    MaterialAlertDialogBuilder(requireContext()).setTitle(resources.getString(R.string.title))
-                        .setSingleChoiceItemViewModelUpdated(sortingList).show()
-
-                    true
-                }
-
-                else -> false
-            }
+    private fun setupAdapter() {
+        // Pass lambda for favorite clicks instead of making ViewModel implement an interface
+        restaurantAdapter = RestaurantAdapter { restaurant ->
+            viewModel.processIntent(HomeIntent.ToggleFavorite(restaurant))
         }
 
         binding.restaurantRv.apply {
@@ -56,62 +56,82 @@ class HomeFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
         }
+    }
 
-        launchAndRepeatWithViewLifecycle {
-            viewModel.uiRestaurantState.collect { restaurantDataState ->
-                when (restaurantDataState) {
-                    is RestaurantUiState.Error -> {
-                        Toast.makeText(
-                            requireContext(), restaurantDataState.errorMessage, Toast.LENGTH_SHORT
-                        ).show()
-                    }
-
-                    RestaurantUiState.Loading -> {
-                        showProgressBar(true)
-                        binding.restaurantRv.isVisible = false
-                    }
-
-                    is RestaurantUiState.Success -> {
-                        showProgressBar(false)
-                        binding.restaurantRv.isVisible = true
-                        restaurantAdapter.submitList(restaurantDataState.restaurantList)
-                    }
+    private fun setupMenu() {
+        createFragmentMenu(R.menu.sort_options) {
+            when (it.itemId) {
+                R.id.sort_action -> {
+                    showSortDialog()
+                    true
                 }
+                else -> false
             }
         }
     }
 
-    private fun showProgressBar(isVisible: Boolean) {
-        binding.loadingProgress.isVisible = isVisible
+    private fun showSortDialog() {
+        val sortingList = SortOptions.entries.map { it.name.normalized() }.toTypedArray()
+        val currentIndex = viewModel.state.value.selectedSortIndex
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.title))
+            .setSingleChoiceItems(sortingList, currentIndex) { dialog, which ->
+                viewModel.processIntent(
+                    HomeIntent.SelectSortOption(SortOptions.entries[which])
+                )
+                dialog.dismiss()
+            }
+            .show()
     }
 
-    /**
-     * It takes the values of the enum, maps them to a new array of strings, and returns the new array
-     *
-     * @return An array of strings.
-     */
-    private fun sortingValues(): Array<String> {
-        return SortOptions.values().map { it.name.normalized() }.toTypedArray()
+    private fun observeState() {
+        launchAndRepeatWithViewLifecycle {
+            viewModel.state.collect { state ->
+                renderState(state)
+            }
+        }
+    }
+
+    private fun renderState(state: HomeState) {
+        binding.loadingProgress.isVisible = state.isLoading
+        binding.restaurantRv.isVisible = !state.isLoading && state.error == null
+
+        if (!state.isLoading && state.error == null) {
+            restaurantAdapter.submitList(state.restaurants)
+        }
+    }
+
+    private fun observeEffects() {
+        launchAndRepeatWithViewLifecycle {
+            viewModel.effects.collect { effect ->
+                handleEffect(effect)
+            }
+        }
+    }
+
+    private fun handleEffect(effect: HomeEffect) {
+        when (effect) {
+            is HomeEffect.ShowMessage -> {
+                Toast.makeText(requireContext(), effect.message, Toast.LENGTH_SHORT).show()
+            }
+            is HomeEffect.ShowError -> {
+                val message = when (val error = effect.error) {
+                    is HomeError.NetworkError -> error.message
+                    is HomeError.UnknownError -> error.message
+                }
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            }
+            is HomeEffect.NavigateToDetails -> {
+                // Future: Navigate to details screen
+            }
+        }
     }
 
     private fun String.normalized(): String {
         return this.replace("_", " ").lowercase().replaceFirstChar { firstChar ->
-                if (firstChar.isLowerCase()) firstChar.titlecase(Locale.getDefault())
-                else firstChar.toString()
-            }
-    }
-
-
-    private fun MaterialAlertDialogBuilder.setSingleChoiceItemViewModelUpdated(sortingList: Array<String>) =
-        apply {
-            launchAndRepeatWithViewLifecycle {
-                viewModel.checkedItem.collectLatest { number ->
-                    setSingleChoiceItems(sortingList, number) { dialog, which ->
-                        viewModel.onSortOptionSelected(SortOptions.values()[which])
-                        viewModel.checkedItem.value = which
-                        dialog.dismiss()
-                    }
-                }
-            }
+            if (firstChar.isLowerCase()) firstChar.titlecase(Locale.getDefault())
+            else firstChar.toString()
         }
+    }
 }

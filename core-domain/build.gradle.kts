@@ -2,19 +2,23 @@ plugins {
     id("com.android.library")
     id("klejvi.plugin.android")
     id("kotlin-parcelize")
-    kotlin("plugin.serialization") version "1.4.21"
+    kotlin("plugin.serialization") version "1.9.22"
 }
 
 android {
-//    Junit requires min sdk 14 // added to remove the warning for running androidTest
+    namespace = "com.kl3jvi.domain"
+    
     defaultConfig {
         minSdk = Config.minSdkVersion
         testInstrumentationRunner = Config.AndroidTestRunner.instrumentationTestRunner
     }
+    
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
 
 dependencies {
-    // Adding a dependency to the project.
     implementation(project(Dependencies.Modules.common))
     implementation(project(Dependencies.Modules.model))
 

@@ -11,17 +11,22 @@ import com.kl3jvi.feature_home.R
 import com.kl3jvi.feature_home.databinding.ItemRestaurantBinding
 import com.kl3jvi.model.Restaurant
 
+/**
+ * Adapter for displaying restaurants in a RecyclerView.
+ *
+ * @param onFavoriteClick Lambda called when user taps favorite button
+ */
 class RestaurantAdapter(
-    private val onFavoriteClickListener: OnFavoriteButtonClickListener
+    private val onFavoriteClick: (Restaurant) -> Unit
 ) : ListAdapter<Restaurant, RestaurantAdapter.RestaurantViewHolder>(RestaurantDiffUtil) {
 
     inner class RestaurantViewHolder(private val binding: ItemRestaurantBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        
         init {
             binding.apply {
                 setClickListener { view ->
                     binding.restaurantInfo?.let { restaurant ->
-                        /* Creating a click listener that will navigate to the details fragment. */
                         Navigation.createNavigateOnClickListener(
                             R.id.to_details,
                             bundleOf(
@@ -31,7 +36,10 @@ class RestaurantAdapter(
                         ).onClick(view)
                     }
                 }
-                favoriteClickListener = onFavoriteClickListener
+                // Create functional interface from lambda
+                favoriteClickListener = OnFavoriteButtonClickListener { restaurant ->
+                    onFavoriteClick(restaurant)
+                }
             }
         }
 
@@ -54,15 +62,13 @@ class RestaurantAdapter(
 
     override fun getItemCount() = currentList.size
 
-    /* Compare two objects. */
     private object RestaurantDiffUtil : DiffUtil.ItemCallback<Restaurant>() {
         override fun areItemsTheSame(oldItem: Restaurant, newItem: Restaurant) =
-            oldItem.name == newItem.name &&
-                oldItem.sortingValues == newItem.sortingValues &&
-                oldItem.status == newItem.status &&
-                oldItem.isFavorite == newItem.isFavorite
+            oldItem.name == newItem.name
 
         override fun areContentsTheSame(oldItem: Restaurant, newItem: Restaurant) =
-            oldItem == newItem
+            oldItem == newItem &&
+                oldItem.isFavorite == newItem.isFavorite &&
+                oldItem.status == newItem.status
     }
 }

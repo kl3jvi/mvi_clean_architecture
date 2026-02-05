@@ -45,7 +45,6 @@ open class AndroidPlugin : Plugin<Project> {
      */
     private fun Project.configureAndroid() = extensions.getByType(BaseExtension::class.java).run {
         compileSdkVersion(Config.compileSdk)
-        buildToolsVersion(Config.buildTools)
 
         defaultConfig {
             multiDexEnabled = true
@@ -54,6 +53,7 @@ open class AndroidPlugin : Plugin<Project> {
             testInstrumentationRunner = Config.AndroidTestRunner.instrumentationTestRunner
 
             /* Excluding some files from the APK. */
+            @Suppress("DEPRECATION")
             packagingOptions {
                 resources.excludes.addAll(
                     listOf(
@@ -74,8 +74,8 @@ open class AndroidPlugin : Plugin<Project> {
             }
 
             compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_1_8
-                targetCompatibility = JavaVersion.VERSION_1_8
+                sourceCompatibility = JavaVersion.VERSION_17
+                targetCompatibility = JavaVersion.VERSION_17
             }
 
             buildTypes {

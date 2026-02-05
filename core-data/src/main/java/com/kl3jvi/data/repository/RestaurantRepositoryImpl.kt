@@ -2,7 +2,7 @@ package com.kl3jvi.data.repository
 
 import com.kl3jvi.common.AppDispatchers.IO
 import com.kl3jvi.common.Dispatcher
-import com.kl3jvi.domain.datasource.TakeAwayRemoteDataSource
+import com.kl3jvi.data.datasource.RestaurantDataSource
 import com.kl3jvi.domain.repository.RestaurantRepository
 import com.kl3jvi.model.Restaurant
 import com.kl3jvi.persistence.dao.RestaurantDao
@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RestaurantRepositoryImpl @Inject constructor(
-    private val network: TakeAwayRemoteDataSource,
+    private val dataSource: RestaurantDataSource,
     private val local: RestaurantDao,
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher
 ) : RestaurantRepository {
@@ -35,7 +35,7 @@ class RestaurantRepositoryImpl @Inject constructor(
 
         /* Getting the restaurants from the network and converting them to domain models. */
         val networkRestaurantsStream =
-            network.getRestaurants()
+            dataSource.getRestaurants()
 
         /* Combining the two streams into a single stream. */
         return combine(

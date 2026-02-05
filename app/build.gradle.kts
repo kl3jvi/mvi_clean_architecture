@@ -3,7 +3,7 @@ plugins {
     kotlin("android")
     id("klejvi.plugin.android")
     id("dagger.hilt.android.plugin")
-    kotlin("plugin.serialization") version "1.4.21"
+    kotlin("plugin.serialization") version "1.9.22"
 }
 
 androidPlugin {
@@ -11,6 +11,8 @@ androidPlugin {
 }
 
 android {
+    namespace = "com.kl3jvi.takeawaytask"
+    
     signingConfigs {
         create("release") {
         }
@@ -33,6 +35,10 @@ android {
             isDebuggable = false
         }
     }
+    
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
 
 dependencies {
@@ -51,7 +57,4 @@ dependencies {
     // Android Testing
     Dependencies.Testing(Dependencies.Testing.Type.ANDROID)
         .forEach { androidTestImplementation(it) }
-
-    implementation("com.github.kl3jvi.mappy:mappy-core:0.0.1")
-    kapt("com.github.kl3jvi.mappy:mappy-processor:0.0.1")
 }

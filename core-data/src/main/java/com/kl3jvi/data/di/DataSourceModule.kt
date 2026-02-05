@@ -2,8 +2,8 @@ package com.kl3jvi.data.di
 
 import android.content.Context
 import android.content.res.AssetManager
-import com.kl3jvi.data.datasource.TakeAwayRemoteDataSourceImpl
-import com.kl3jvi.domain.datasource.TakeAwayRemoteDataSource
+import com.kl3jvi.data.datasource.RestaurantDataSource
+import com.kl3jvi.data.datasource.StaticRestaurantDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -19,9 +19,9 @@ import javax.inject.Singleton
 interface DataSourceModule {
 
     @Binds
-    fun bindsTakeAwayRemoteDataSource(
-        takeAwayNetwork: TakeAwayRemoteDataSourceImpl
-    ): TakeAwayRemoteDataSource
+    fun bindsRestaurantDataSource(
+        staticDataSource: StaticRestaurantDataSource
+    ): RestaurantDataSource
 
     /* Providing a singleton instance of Json. */
     companion object {

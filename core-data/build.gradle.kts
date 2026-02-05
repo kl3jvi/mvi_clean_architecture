@@ -1,14 +1,19 @@
 plugins {
     id("com.android.library")
     id("klejvi.plugin.android")
-    kotlin("plugin.serialization") version "1.4.21"
+    kotlin("plugin.serialization") version "1.9.22"
 }
 
 android {
-//    Junit requires min sdk 14 // added to remove the warning for running androidTest
+    namespace = "com.kl3jvi.data"
+    
     defaultConfig {
         minSdk = Config.minSdkVersion
         testInstrumentationRunner = Config.AndroidTestRunner.instrumentationTestRunner
+    }
+    
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 

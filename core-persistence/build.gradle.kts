@@ -4,17 +4,23 @@ plugins {
 }
 
 android {
+    namespace = "com.kl3jvi.persistence"
+    
     defaultConfig {
         minSdk = Config.minSdkVersion
         testInstrumentationRunner = Config.AndroidTestRunner.instrumentationTestRunner
+    }
+    
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 
 dependencies {
     implementation(project(Dependencies.Modules.common))
+    implementation(project(Dependencies.Modules.model))
 
     implementation(Dependencies.Room.ktx)
-    implementation(project(mapOf("path" to ":core-model")))
     kapt(Dependencies.Room.compiler)
 
     implementation(Dependencies.Coroutines.android)

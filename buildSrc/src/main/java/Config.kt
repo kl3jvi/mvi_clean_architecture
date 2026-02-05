@@ -1,10 +1,10 @@
 object Config {
 
     const val applicationId = "com.kl3jvi.takeaway_task"
-    const val compileSdk = 32
-    const val minSdkVersion = 23
-    const val targetSdkVersion = 32
-    const val buildTools = "30.0.3"
+    const val compileSdk = 34
+    const val minSdkVersion = 24
+    const val targetSdkVersion = 34
+    const val buildTools = "34.0.0"
     const val versionCode = 1
     const val versionName = "1.0.0"
 
