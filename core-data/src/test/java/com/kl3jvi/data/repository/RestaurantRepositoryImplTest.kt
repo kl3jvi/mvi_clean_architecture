@@ -1,8 +1,8 @@
 package com.kl3jvi.data.repository
 
+import com.kl3jvi.data.datasource.RestaurantDataSource
 import com.kl3jvi.data.testdoubles.TestRestaurantDao
-import com.kl3jvi.data.testdoubles.TestTakeAwayRemoteDataSource
-import com.kl3jvi.domain.datasource.TakeAwayRemoteDataSource
+import com.kl3jvi.data.testdoubles.TestRestaurantDataSource
 import com.kl3jvi.domain.repository.RestaurantRepository
 import com.kl3jvi.model.Restaurant
 import com.kl3jvi.model.SortingValues
@@ -25,14 +25,14 @@ class RestaurantRepositoryImplTest {
 
     private lateinit var restaurantDao: RestaurantDao
 
-    private lateinit var network: TakeAwayRemoteDataSource
+    private lateinit var dataSource: RestaurantDataSource
 
     private val testDispatcher = StandardTestDispatcher()
 
     @Before
     fun setup() {
         restaurantDao = TestRestaurantDao()
-        network = TestTakeAwayRemoteDataSource(
+        dataSource = TestRestaurantDataSource(
             listOf(
                 Restaurant(
                     name = "Fake Restaurant",
@@ -40,18 +40,18 @@ class RestaurantRepositoryImplTest {
                         1.3F,
                         2.3F,
                         4.3F,
-                        1234,
+                        1234L,
                         3.4F,
-                        123,
-                        15,
-                        1
+                        123L,
+                        15L,
+                        1L
                     ),
                     status = Status.OPEN
                 )
             )
         )
         subject = RestaurantRepositoryImpl(
-            network = network,
+            dataSource = dataSource,
             local = restaurantDao,
             ioDispatcher = testDispatcher
         )
@@ -74,11 +74,11 @@ class RestaurantRepositoryImplTest {
                     1.3F,
                     2.3F,
                     4.3F,
-                    1234,
+                    1234L,
                     3.4F,
-                    123,
-                    15,
-                    1
+                    123L,
+                    15L,
+                    1L
                 )
             )
         )

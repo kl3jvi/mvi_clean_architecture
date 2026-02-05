@@ -11,16 +11,32 @@ class TestRestaurantRepository : RestaurantRepository {
     private val restaurantsFlow =
         MutableSharedFlow<List<Restaurant>>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 
+    private var toggleFavoriteResult: Boolean = true
+    private var lastToggledRestaurant: Restaurant? = null
+
     /**
-     * A test-only API to allow controlling the list of restaurants resources from tests.
+     * A test-only API to allow controlling the list of restaurants from tests.
      */
-    fun sendRestaurantList(newsResources: List<Restaurant>) {
-        restaurantsFlow.tryEmit(newsResources)
+    fun sendRestaurantList(restaurants: List<Restaurant>) {
+        restaurantsFlow.tryEmit(restaurants)
     }
+
+    /**
+     * Set the result that toggleRestaurantFavorite should return.
+     */
+    fun setToggleFavoriteResult(result: Boolean) {
+        toggleFavoriteResult = result
+    }
+
+    /**
+     * Get the last restaurant that was toggled.
+     */
+    fun getLastToggledRestaurant(): Restaurant? = lastToggledRestaurant
 
     override fun getRestaurants(): Flow<List<Restaurant>> = restaurantsFlow
 
     override suspend fun toggleRestaurantFavorite(restaurant: Restaurant): Boolean {
-        throw NotImplementedError("Unused in ViewModel tests")
+        lastToggledRestaurant = restaurant
+        return toggleFavoriteResult
     }
 }
